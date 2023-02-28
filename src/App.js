@@ -21,6 +21,17 @@ function App() {
     
   };
 
+  const handleClick = () => {
+    if(user.name===""){
+      alert("You need to your valid email");
+
+    }else if(user.password===""){
+      alert("Enter your password");
+    }else{
+      alert("Email:" +user.name +"Password:"+user.password);
+    }
+  }
+
   return (
   <>
     <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
@@ -44,7 +55,8 @@ function App() {
                     Password
                   </label>
                   <Input type={"password"} value={user.password} onChange={handleChange}/>
-                  <Button/>
+                  <Button onClick={handleClick}
+                  />
               </Forms>
         </div>
     </div>
