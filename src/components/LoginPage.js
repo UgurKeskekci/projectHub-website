@@ -17,8 +17,7 @@ function LoginPage() {
   const ProceedLogin = (e) =>  {
     e.preventDefault();
     if(validate()){
-      //implementation
-      //console.log('proceed');
+      //implement
       fetch('http://localhost:8000/user/'+username).then((res)=>{
         return res.json();
       }).then((resp)=>{
@@ -122,7 +121,12 @@ function LoginPage() {
                             Login
                           
                         </button>
-                        <Link   className='w-full px-6 py-2.5
+                       
+                        
+                        
+          </div>
+                   <div className=''>
+                        <Link   className='flex  justify-center item-center w-full px-6 py-2.5
                     bg-green-600 text-white
                     text-white font-medium text-xs leading-tight
                     uppercase rounded shadow-md
@@ -130,10 +134,7 @@ function LoginPage() {
                     focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
                     active:bg-blue-800 active:shadow-lg
                     transition duration-150 ease-in-out' to={'/register'}>Register</Link>
-                        
-                        
-                        
-          </div>
+                        </div>
 
               </Forms>
              
@@ -145,37 +146,7 @@ function LoginPage() {
     
     
     </>
-    /*<>
-    <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
-        <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl"> 
-             <h1 className="text-3xl font-semibold text-center text-blue-600">
-                   Welcome to ProjectHub
-              </h1>
-     
-              <Forms>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-semibold text-gray-800"
-                    >
-                    Email
-                  </label>
-                  <Input type={"text"} value={user.name} onChange={handleChange}/>
-                  <label
-                    htmlFor="password" 
-                    className="block text-sm font-semibold text-gray-800"
-                    >
-                    Password
-                  </label>
-                  <Input type={"password"} value={user.password} onChange={handleChange}/>
-                  <Button onClick={handleClick}
-                  />
-              </Forms>
-        </div>
-    </div>
-    
-    
-    
-    </>*/
+  
   )
 }
 

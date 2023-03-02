@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useNavigate,Link } from 'react-router-dom';
 
 
 function MainPage() {
@@ -37,11 +38,11 @@ function MainPage() {
 
   return (
     <>
-    <div className='flex flex-row bg-gray-800'>
-    <div className="container my-24 px-6 mx-auto bg-gray-300 rounded mx-8">
+    <div className='flex flex-row bg-slate-900'>
+    <div className="container my-24 px-6 mx-auto bg-gray-800 rounded mx-12">
         <section className='mb-32 text-center text-gray-800'>
             <div className='max-w-[700px] mx-auto px-3 lg:px-6'>
-                <h2 className='text-3xl font-bold mb-12'>
+                <h2 className='text-white text-3xl font-bold mb-12'>
                     Project Form
                 </h2>
             </div>
@@ -105,49 +106,62 @@ function MainPage() {
                     transition duration-150 ease-in-out shadow-md shadow-black'>
                     submit
                 </button>
+                <div className='flex mt-2'>
+                        <Link   className='w-full px-6 py-2.5
+                            bg-green-600 text-white
+                            text-white font-medium text-xs leading-tight
+                            uppercase rounded shadow-md
+                            hover:bg-green-700 hover:shadow-lg
+                            focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+                            active:bg-blue-800 active:shadow-lg
+                            transition duration-150 ease-in-out' to={'/'}>Back to Login Page
+                        </Link>
+                </div>
+                
             </form>
         </section>
         </div>
         
-        <div className="container my-24 px-6 mx-auto bg-gray-300 rounded mx-8">
+        <div className="container  my-24 px-6 mx-auto bg-gray-800 rounded mx-12">
         <section className='mb-32 text-center text-gray-800 '>
             <div>
-                <h2 className='text-3xl font-bold mb-12'>
+                <h2 className='text-white text-3xl font-bold mb-12'>
                     Project Ideas
                 </h2>
                 <hr></hr>
+                
                
                 <div>
-        <h2>Submitted Data:</h2>
-        <ul>
+            
+        <h2></h2>
+        <ul className='mt-4'>
           {data.map((item, index) => (
             <>
-                
-
-
             <li key={index}>
-                <div className="grid grid-cols-2 gap-2 mb-3
-                    border bg-gray-400  rounded 
+                <div className="grid grid-cols-1 gap-2 mb-3
+                    border bg-gray-200  rounded-lg
                     shadow-sm shadow-black">
-                    <div className="... text-left"><p>Name: {item.name}</p></div>
-                    <div className="... text-left"> <p>Email: {item.projectName}</p></div>
+                    <div className="... text-left flex"><p className='font-normal text-blue-800 mr-3'> {item.name}  </p><p className='font-normal text-green-600'>{item.projectName}</p></div>
+                
                     
-                    <div className="col-span-2 ... text-left"> <p>Message: {item.message}</p></div>
+                    <div className="col-span-2 ... text-left "> <p className='font-light'> {item.message}</p></div>
                     
                 </div>
                
               </li>
-            
             </>
-            
             
           ))}
         </ul>
         </div>
         </div>    
+        
         </section>
+        
         </div>
+       
         </div>
+        
 
 
     </>
