@@ -87,8 +87,8 @@ function LoginPage() {
 
     <>
     <ToastContainer />
-    <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
-        <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl"> 
+    <div className="bg-slate-900 relative flex flex-col justify-center min-h-screen overflow-hidden">
+        <div className="w-full p-6 m-auto bg-slate-400 rounded-md shadow-md lg:max-w-xl"> 
              <h1 className="text-3xl font-semibold text-center text-blue-600">
                    Welcome to ProjectHub
               </h1>
@@ -111,7 +111,7 @@ function LoginPage() {
                   <div className="mt-6">
                         <button type="submit" className='w-full px-6 py-2.5
                     bg-blue-600 text-white
-                    text-white font-medium text-xs leading-tight
+                     font-medium text-xs leading-tight
                     uppercase rounded shadow-md
                     hover:bg-blue-700 hover:shadow-lg
                     focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
@@ -127,7 +127,7 @@ function LoginPage() {
           </div>
                    <div className=''>
                         <Link   className='flex  justify-center item-center w-full px-6 py-2.5
-                    bg-green-600 text-white
+                    bg-green-600 
                     text-white font-medium text-xs leading-tight
                     uppercase rounded shadow-md
                     hover:bg-green-700 hover:shadow-lg

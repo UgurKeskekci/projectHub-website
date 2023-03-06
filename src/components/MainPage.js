@@ -1,7 +1,7 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { useNavigate,Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 function MainPage() {
@@ -9,12 +9,15 @@ function MainPage() {
     const [projectName, setProjectName] = useState('');
     const [message, setMessage] = useState('');
     const [data, setData] = useState([]); 
+    const LoadDetail=(id)=>{
+        navigate("/DetailPage/"+id);
+    }
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(`Name: ${name}, ProjectName: ${projectName}, Message:${message}`);
-        setData([...data, { name, projectName, message }]);
+        setData([{ name, projectName, message },...data]);
         setName('');
         setProjectName('');
         setMessage('');
@@ -28,7 +31,7 @@ function MainPage() {
             headers:{'content-type':'application/json'},
             body:JSON.stringify(dataobj)
         }).then((res)=>{
-            toast.success('Data saved to json')
+            toast.success('Data saved')
         }).catch((err)=>{
             toast.err('Fill all blanks',err.message);
         })
@@ -36,10 +39,29 @@ function MainPage() {
       };
 
 
+      //to get data from json to ideas form
+        const[userdata, userdatachange]=useState(null);
+        const navigate = useNavigate();
+        useEffect(() => {
+            fetch("http://localhost:8000/formdata").then((res)=>{
+                return res.json();
+            }).then((resp)=>{
+                userdatachange(resp);
+            }).catch((err)=>{
+                console.log(err.message);
+            })
+
+        },[])
+      
+      
+        
+
+
+
   return (
     <>
-    <div className='flex flex-row bg-slate-900'>
-    <div className="container my-24 px-6 mx-auto bg-gray-800 rounded mx-12">
+    <div className='flex flex-row bg-slate-900 h-screen min-h-screen'>
+    <div className="container my-36 px-6 bg-gray-800 rounded mr-16 ml-16 overflow-auto">
         <section className='mb-32 text-center text-gray-800'>
             <div className='max-w-[700px] mx-auto px-3 lg:px-6'>
                 <h2 className='text-white text-3xl font-bold mb-12'>
@@ -48,7 +70,7 @@ function MainPage() {
             </div>
             <form onSubmit={handleSubmit}>
                 <div className='form-group mb-6'>
-                    <input key="name" type="text" value={name} onChange={(e)=>setName(e.target.value)} placeholder='Name Surname' className='form-control block 
+                    <input required key="name" type="text" value={name} onChange={(e)=>setName(e.target.value)} placeholder='Name Surname' className='form-control block 
                     w-full
                     px-3
                     py-1.5
@@ -62,9 +84,10 @@ function MainPage() {
                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none shadow-md shadow-black'>
   
                     </input>
+                    
                 </div>
                 <div className='form-group mb-6' >
-                    <input key="projectname" type="text" placeholder='Project Name' value={projectName} onChange={(e)=>setProjectName(e.target.value)} className='form-control block 
+                    <input required key="projectname" type="text" placeholder='Project Name' value={projectName} onChange={(e)=>setProjectName(e.target.value)} className='form-control block 
                     w-full
                     px-3
                     py-1.5
@@ -80,7 +103,7 @@ function MainPage() {
                     </input>
                 </div>
                 <div className='form-group mb-6'>
-                    <textarea rows="3" placeholder='Enter your idea' key="message" value={message} onChange={(e)=>setMessage(e.target.value)} 
+                    <textarea required rows="3" placeholder='Enter your idea' key="message" value={message} onChange={(e)=>setMessage(e.target.value)} 
                     className='form-control block 
                     w-full
                     px-3
@@ -97,18 +120,18 @@ function MainPage() {
                     </textarea>
                 </div>
                 <button key="submit-button" type='submit' className='w-full px-6 py-2.5
-                    bg-blue-600 text-white
+                    bg-blue-600 
                     text-white font-medium text-xs leading-tight
                     uppercase rounded shadow-md
                     hover:bg-blue-700 hover:shadow-lg
                     focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
                     active:bg-blue-800 active:shadow-lg
-                    transition duration-150 ease-in-out shadow-md shadow-black'>
+                    transition duration-150 ease-in-out shadow-black'>
                     submit
                 </button>
                 <div className='flex mt-2'>
                         <Link   className='w-full px-6 py-2.5
-                            bg-green-600 text-white
+                            bg-green-600 
                             text-white font-medium text-xs leading-tight
                             uppercase rounded shadow-md
                             hover:bg-green-700 hover:shadow-lg
@@ -122,7 +145,7 @@ function MainPage() {
         </section>
         </div>
         
-        <div className="container  my-24 px-6 mx-auto bg-gray-800 rounded mx-12">
+        <div className="container  my-6 px-6  bg-gray-800 rounded mr-16 ml-2 overflow-auto">
         <section className='mb-32 text-center text-gray-800 '>
             <div>
                 <h2 className='text-white text-3xl font-bold mb-12'>
@@ -133,22 +156,50 @@ function MainPage() {
                
                 <div>
             
-        <h2></h2>
+        
         <ul className='mt-4'>
           {data.map((item, index) => (
             <>
             <li key={index}>
-                <div className="grid grid-cols-1 gap-2 mb-3
-                    border bg-gray-200  rounded-lg
-                    shadow-sm shadow-black">
-                    <div className="... text-left flex"><p className='font-normal text-blue-800 mr-3'> {item.name}  </p><p className='font-normal text-green-600'>{item.projectName}</p></div>
-                
-                    
-                    <div className="col-span-2 ... text-left "> <p className='font-light'> {item.message}</p></div>
-                    
+                <div className="flex flex-col md:flex-col justify-center text-left  rounded-xl bg-slate-700 mb-2">
+                    <div className="transition-all ease-in-out duration-1000 flex flex-col justify-center mr-0 md:mr-2 ">
+                        <div slot="bottom-left" class="max-w-xs ">
+                            <div className="p-2 shadow-md m-2">
+                                <div className="text-s font-bold text-left uppercase text-teal-700  mb-2">{item.name}</div>
+                                <div className="text-xl text-white text-left font-medium">{item.projectName}</div>
+                                <div className="truncate text-white text-left">{item.message}</div>
+                                <div className="text-white text-left mt-2"><button  className="flex-no-shrink  px-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border text-white rounded-full" onClick={()=>{LoadDetail(item.id)}}>Read More...</button></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-               
+                
               </li>
+            </>
+            
+          ))}
+        </ul>
+
+        <ul className='mt-4'>
+          {userdata && userdata.map((item, index) => (
+            <>
+                <li key={index}>
+
+                <div className="flex flex-col md:flex-col justify-center text-left  rounded-xl bg-slate-700 mb-2">
+                    <div className="transition-all ease-in-out duration-1000 flex flex-col justify-center mr-0 md:mr-2 ">
+                        <div slot="bottom-left" class="max-w-xs ">
+                            <div className="p-2 shadow-md m-2">
+                                <div className="text-s font-bold text-left uppercase text-teal-700  mb-2">{item.name}</div>
+                                <div className="text-xl text-white text-left font-medium">{item.projectName}</div>
+                                <div className="truncate text-white text-left">{item.message}</div>
+                                <div className="text-white text-left mt-2"><button  className="flex-no-shrink  px-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border text-white rounded-full" onClick={()=>{LoadDetail(item.id)}}>Read More...</button></div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                
+                </li>
             </>
             
           ))}
@@ -161,7 +212,7 @@ function MainPage() {
         </div>
        
         </div>
-        
+       
 
 
     </>
