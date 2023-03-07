@@ -46,6 +46,7 @@ function MainPage() {
             fetch("http://localhost:8000/formdata").then((res)=>{
                 return res.json();
             }).then((resp)=>{
+                resp.reverse(); //son eklenen en üstte gösterilsin
                 userdatachange(resp);
             }).catch((err)=>{
                 console.log(err.message);
@@ -54,8 +55,6 @@ function MainPage() {
         },[])
       
       
-        
-
 
 
   return (
@@ -163,7 +162,7 @@ function MainPage() {
             <li key={index}>
                 <div className="flex flex-col md:flex-col justify-center text-left  rounded-xl bg-slate-700 mb-2">
                     <div className="transition-all ease-in-out duration-1000 flex flex-col justify-center mr-0 md:mr-2 ">
-                        <div slot="bottom-left" class="max-w-xs ">
+                        <div slot="bottom-left" className="max-w-xs ">
                             <div className="p-2 shadow-md m-2">
                                 <div className="text-s font-bold text-left uppercase text-teal-700  mb-2">{item.name}</div>
                                 <div className="text-xl text-white text-left font-medium">{item.projectName}</div>
@@ -187,7 +186,7 @@ function MainPage() {
 
                 <div className="flex flex-col md:flex-col justify-center text-left  rounded-xl bg-slate-700 mb-2">
                     <div className="transition-all ease-in-out duration-1000 flex flex-col justify-center mr-0 md:mr-2 ">
-                        <div slot="bottom-left" class="max-w-xs ">
+                        <div slot="bottom-left" className="max-w-xs ">
                             <div className="p-2 shadow-md m-2">
                                 <div className="text-s font-bold text-left uppercase text-teal-700  mb-2">{item.name}</div>
                                 <div className="text-xl text-white text-left font-medium">{item.projectName}</div>
